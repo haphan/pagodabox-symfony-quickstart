@@ -2,7 +2,6 @@ global:
   env:
     - SYMFONY_ENV: dev
 
-
 build:
   exec:
     - 'php -v'
@@ -12,17 +11,12 @@ build:
   lib_dir: vendor
   reuse_libs: true
 
-
 web1:
 
 # ~~~ APACHE ~~~~~~~~~~~~~~~~~~~~~~~~~
   name: sf2-app
-  type: php
-  version: 7.0
-  stability: beta
-
   httpd_document_root: web
-  httpd_index_list: [app_dev.php]
+  httpd_index_list: ['app_dev.php']
   httpd_log_level: warn
 
 # ~~~ PHP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
