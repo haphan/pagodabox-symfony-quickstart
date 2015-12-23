@@ -47,6 +47,8 @@ web1:
     - mcrypt
     - phar
     - session
+    - redis
+    - memcached
   php_zend_extensions:
     - opcache
 
