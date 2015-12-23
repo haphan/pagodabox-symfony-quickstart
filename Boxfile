@@ -16,107 +16,94 @@ build:
 web1:
 
 # ~~~ APACHE ~~~~~~~~~~~~~~~~~~~~~~~~~
-    name: sf2-app
-    type: php
-    version: 7.0
-    stability: beta
+  name: sf2-app
+  type: php
+  version: 7.0
+  stability: beta
 
-    httpd_document_root: web
-    httpd_index_list: [app_dev.php]
-    httpd_log_level: warn
+  httpd_document_root: web
+  httpd_index_list: [app_dev.php]
+  httpd_log_level: warn
 
 # ~~~ PHP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    version: 5.6
-    stability: production
+  version: 5.6
+  stability: production
 
-    shared_writable_dirs:
-      - app/cache
-      - app/logs
+  shared_writable_dirs:
+    - app/cache
+    - app/logs
 
-    php_extensions:
-      - apcu
-      - apfd
-      - bcmath
-      - bundle
-      - bz2
-      - calendar
-      - ctype
-      - curl
-      - dba
-      - dom
-      - enchant
-      - exif
-      - fileinfo
-      - filter
-      - gd
-      - gettext
-      - gmp
-      - hash
-      - iconv
-      - imap
-      - intl
-      - json
-      - json_post
-      - ldap
-      - lzf
-      - mbstring
-      - mcrypt
-      - mysqli
-      - pcntl
-      - pdo
-      - pdo_mysql
-      - pdo_sqlite
-      - pgsql
-      - phar
-      - posix
-      - pspell
-      - readline
-      - recode
-      - session
-      - shmop
-      - simplexml
-      - snmp
-      - soap
-      - sockets
-      - sysvmsg
-      - sysvsem
-      - sysvshm
-      - tidy
-      - tokenizer
-      - wddx
-      - xml
-      - xmlreader
-      - xmlrpc
-      - xmlwriter
-      - xsl
-      - zip
-      - zlib
-    php_zend_extensions:
-      - opcache
+  php_extensions:
+    - apcu
+    - apfd
+    - bcmath
+    - bundle
+    - bz2
+    - calendar
+    - ctype
+    - curl
+    - dba
+    - dom
+    - enchant
+    - exif
+    - fileinfo
+    - filter
+    - gd
+    - gettext
+    - gmp
+    - hash
+    - iconv
+    - imap
+    - intl
+    - json
+    - json_post
+    - ldap
+    - lzf
+    - mbstring
+    - mcrypt
+    - mysqli
+    - pcntl
+    - pdo
+    - pdo_mysql
+    - pdo_sqlite
+    - pgsql
+    - phar
+    - posix
+    - pspell
+    - readline
+    - recode
+    - session
+    - shmop
+    - simplexml
+    - snmp
+    - soap
+    - sockets
+    - sysvmsg
+    - sysvsem
+    - sysvshm
+    - tidy
+    - tokenizer
+    - wddx
+    - xml
+    - xmlreader
+    - xmlrpc
+    - xmlwriter
+    - xsl
+    - zip
+    - zlib
+  php_zend_extensions:
+    - opcache
 
-    php_session_autostart: "0"
-    php_short_open_tag: "0"
-    php_date_timezone: "Asia/Singapore"
+  php_session_autostart: "0"
+  php_short_open_tag: "0"
+  php_date_timezone: "Asia/Singapore"
 
 # ~~~ COMMAND HOOKS ~~~~~~~~~~~~~~~~~~
 
-    after_build:
-    - "php -v"
-    - "composer dumpautoload"
-    #- "curl -sS https://getcomposer.org/installer | php"
-    #- "php composer.phar install --prefer-source --optimize-autoloader --no-interaction"
-
-    # --prefer-source smooths out API limits https://github.com/composer/composer/issues/1861
-    # --optimize-autoloader generally recommended for production
-    # --no-interaction to create parameters.yml automatically
-
-    after_deploy:
+  after_deploy:
     - "php app/check.php"
-    # - "php app/console --env=prod --no-debug cache:clear --no-warmup"  # do this like every deploy
-    # - "php app/console --env=prod --no-debug cache:warmup"             # do this like every deploy
-    # - "php app/console router:debug --env=prod"                      # helpful reminder
-    # - "php app/console assetic:dump --env=prod --no-debug            # when assetic is in the mix
-
-db1:
-  type: mysql
+  # - "php app/console --env=prod --no-debug cache:clear --no-warmup"  # do this like every deploy
+  # - "php app/console --env=prod --no-debug cache:warmup"             # do this like every deploy
+  # - "php app/console router:debug --env=prod"                      # helpful reminder
+  # - "php app/console assetic:dump --env=prod --no-debug            # when assetic is in the mix
