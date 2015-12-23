@@ -54,9 +54,8 @@ web1:
     # - iconv # (maybe not a PHP library)
     # - tokenizer (already loaded)
     # - xml # (maybe not a PHP library)
-    zend_extensions:
-    # use XCache, not APC — for PHP 5.4 you want APC 3.1.13+ and PagodaBox uses 3.1.9 (segfault city)
-    - opcache
+    php_zend_extensions:
+    - opcache
 
     # php.ini settings for symfony
     php_session_autostart: 0   # off by default but might as well be explicit
@@ -76,8 +75,9 @@ web1:
 
     after_build:
     - "php -v"
-    - "curl -sS https://getcomposer.org/installer | php"
-    - "php composer.phar install --prefer-source --optimize-autoloader --no-interaction"
+    - "composer dumpautoload"
+    #- "curl -sS https://getcomposer.org/installer | php"
+    #- "php composer.phar install --prefer-source --optimize-autoloader --no-interaction"
 
     # --prefer-source smooths out API limits https://github.com/composer/composer/issues/1861
     # --optimize-autoloader generally recommended for production
