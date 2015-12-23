@@ -1,16 +1,17 @@
+global:
+  env:
+    - SYMFONY_ENV: dev
+
+
 build:
-  type: php
-  version: 5.6
-  stability: production
   exec:
-    - "php -v"
-    - "composer install --no-interaction --prefer-source"
+    - 'php -v'
+    - 'composer install --no-interaction --prefer-source'
+  after_exec:
+    - 'composer dump-autoload'
   lib_dir: vendor
   reuse_libs: true
 
-global:
-  env:
-  - SYMFONY_ENV: dev
 
 web1:
 
