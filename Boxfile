@@ -36,27 +36,25 @@ web1:
     stability: beta
     php_date_timezone: UTC
     shared_writable_dirs:
-    - app/cache
-    - app/logs
+      - app/cache
+      - app/logs
     php_extensions:
-    - curl # test
-    - mysqli # test
-    - mysql
-    - pdo_mysql
-    - zip
-    - intl
-    - mbstring
-    - xsl
-    - posix
-    - yaml # test
+      - curl # test
+      - mysqli # test
+      - mysql
+      - pdo_mysql
+      - zip
+      - intl
+      - mbstring
+      - xsl
+      - posix
+      - yaml
     # - apc (see below)
     # - posix # (maybe not a PHP library)
     # - iconv # (maybe not a PHP library)
     # - tokenizer (already loaded)
     # - xml # (maybe not a PHP library)
-    php_zend_extensions:
-      - opcache
-
+    php_zend_extensions: [opcache]
     # php.ini settings for symfony
     php_session_autostart: 0   # off by default but might as well be explicit
     php_short_open_tag: "0"     # don't use "Off" or Off (or "On" or On) which fail to be parsed
