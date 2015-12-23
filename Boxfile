@@ -1,18 +1,7 @@
-# ./Boxfile
-
-# Sources:
-# http://help.pagodabox.com/customer/portal/articles/175128-symfony2
-# https://github.com/mfdj/symfony2-on-pagodabox/blob/master/boilerplate/Boxfile
-# https://github.com/jmather/pagoda-symfony-sonata-distribution/blob/master/Boxfile
-# https://github.com/syrneus/phpinthecloud-symfony-pagodabox/blob/master/Boxfile
-# http://blog.doh.ms/2012/04/16/deploying-a-symfony2-and-composer-app-on-pagodabox/
-# https://gist.github.com/stof/3473109
-# https://getcomposer.org/doc/00-intro.md
-# http://help.pagodabox.com/customer/portal/articles/1142671-php-extensions---php-5-4-14
 build:
   type: php
-  version: 7.0
-  stability: beta
+  version: 5.6
+  stability: production
   exec:
     - "php -v"
     - "composer install --no-interaction --prefer-source"
@@ -39,7 +28,7 @@ web1:
 
     version: 5.6
     stability: production
-    php_date_timezone: UTC
+
     shared_writable_dirs:
       - app/cache
       - app/logs
@@ -59,9 +48,7 @@ web1:
       - exif
       - fileinfo
       - filter
-      - ftp
       - gd
-      - gender
       - gettext
       - gmp
       - hash
@@ -77,10 +64,7 @@ web1:
       - mysqli
       - pcntl
       - pdo
-      - pdo_dblib
       - pdo_mysql
-      - pdo_odbc
-      - pdo_pgsql
       - pdo_sqlite
       - pgsql
       - phar
@@ -98,7 +82,6 @@ web1:
       - sysvsem
       - sysvshm
       - tidy
-      - timezonedb
       - tokenizer
       - wddx
       - xml
@@ -111,20 +94,9 @@ web1:
     php_zend_extensions:
       - opcache
 
-
-    # php.ini settings for symfony
-    php_session_autostart: 0   # off by default but might as well be explicit
-    php_short_open_tag: "0"     # don't use "Off" or Off (or "On" or On) which fail to be parsed
-    #magic_quotes_gpc: 0       # removed as of PHP 5.4
-    #register_globals: 0       # removed as of PHP 5.4
-
-# ~~~ PAGODA ~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    # settings for logs viewable from 'pagoda log'
-    # apache_access_log : false # default: warn
-    apache_error_log  : true
-    php_error_log     : true
-    php_fpm_log       : true
+    php_session_autostart: "0"
+    php_short_open_tag: "0"
+    php_date_timezone: "Asia/Singapore"
 
 # ~~~ COMMAND HOOKS ~~~~~~~~~~~~~~~~~~
 
