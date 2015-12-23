@@ -12,8 +12,8 @@
 build:
   type: php
   version: 7.0
-  stability: production
   exec:
+    - "php -v"
     - "composer install --no-interaction --prefer-source"
   lib_dir: vendor
   reuse_libs: true
@@ -74,8 +74,10 @@ web1:
 # ~~~ COMMAND HOOKS ~~~~~~~~~~~~~~~~~~
 
     after_build:
+    - "php -v"
     - "curl -sS https://getcomposer.org/installer | php"
     - "php composer.phar install --prefer-source --optimize-autoloader --no-interaction"
+
     # --prefer-source smooths out API limits https://github.com/composer/composer/issues/1861
     # --optimize-autoloader generally recommended for production
     # --no-interaction to create parameters.yml automatically
