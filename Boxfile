@@ -11,7 +11,7 @@
 # http://help.pagodabox.com/customer/portal/articles/1142671-php-extensions---php-5-4-14
 build:
   type: php
-  version: 7.0
+  version: 5.6
   exec:
     - "php -v"
     - "composer install --no-interaction --prefer-source"
@@ -19,8 +19,8 @@ build:
   reuse_libs: true
 
 global:
-    env:
-    - SYMFONY_ENV: dev
+  env:
+  - SYMFONY_ENV: dev
 
 web1:
 
@@ -32,7 +32,8 @@ web1:
 
 # ~~~ PHP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    php_version: 7.0
+    version: 7.0
+    stability: beta
     php_date_timezone: UTC
     shared_writable_dirs:
     - app/cache
