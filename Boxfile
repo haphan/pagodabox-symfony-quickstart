@@ -24,7 +24,7 @@ web1:
   version: 5.6
   stability: production
 
-  shared_writable_dirs:
+  nonpersistent_writable_dirs:
     - app/cache
     - app/logs
 
