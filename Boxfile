@@ -55,7 +55,7 @@ web1:
     # - tokenizer (already loaded)
     # - xml # (maybe not a PHP library)
     php_zend_extensions:
-    - opcache
+      - opcache
 
     # php.ini settings for symfony
     php_session_autostart: 0   # off by default but might as well be explicit
