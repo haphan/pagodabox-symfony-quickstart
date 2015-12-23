@@ -11,7 +11,8 @@
 # http://help.pagodabox.com/customer/portal/articles/1142671-php-extensions---php-5-4-14
 build:
   type: php
-  version: 5.6
+  version: 7.0
+  stability: beta
   exec:
     - "php -v"
     - "composer install --no-interaction --prefer-source"
@@ -25,15 +26,19 @@ global:
 web1:
 
 # ~~~ APACHE ~~~~~~~~~~~~~~~~~~~~~~~~~
+    name: sf2-app
+    type: php
+    version: 7.0
+    stability: beta
 
-    document_root   : web # Symfony's standard public folder
-    default_gateway : app_dev.php
-    index_list      : [app_dev.php]
+    httpd_document_root: web
+    httpd_index_list: [app_dev.php]
+    httpd_log_level: warn
 
 # ~~~ PHP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    version: 7.0
-    stability: beta
+    version: 5.6
+    stability: production
     php_date_timezone: UTC
     shared_writable_dirs:
       - app/cache
