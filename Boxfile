@@ -28,6 +28,10 @@ web1:
     - app/cache
     - app/logs
 
+  log_watch:
+    app[prod]: "app/logs/prod.log"
+    app[dev]: "app/logs/dev.log"
+
   php_extensions:
     - apcu
     - apfd
