@@ -1,0 +1,90 @@
+# ./Boxfile
+
+# Sources:
+# http://help.pagodabox.com/customer/portal/articles/175128-symfony2
+# https://github.com/mfdj/symfony2-on-pagodabox/blob/master/boilerplate/Boxfile
+# https://github.com/jmather/pagoda-symfony-sonata-distribution/blob/master/Boxfile
+# https://github.com/syrneus/phpinthecloud-symfony-pagodabox/blob/master/Boxfile
+# http://blog.doh.ms/2012/04/16/deploying-a-symfony2-and-composer-app-on-pagodabox/
+# https://gist.github.com/stof/3473109
+# https://getcomposer.org/doc/00-intro.md
+# http://help.pagodabox.com/customer/portal/articles/1142671-php-extensions---php-5-4-14
+build:
+  type: php
+  version: 5.6
+  stability: production
+  exec:
+    - "composer install --no-interaction --prefer-source"
+  lib_dir: vendor
+  reuse_libs: true
+
+global:
+    env:
+    - SYMFONY_ENV: dev
+
+web1:
+
+# ~~~ APACHE ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    document_root   : web # Symfony's standard public folder
+    default_gateway : app_dev.php
+    index_list      : [app_dev.php]
+
+# ~~~ PHP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    php_version: 5.6
+    php_date_timezone: UTC
+    shared_writable_dirs:
+    - app/cache
+    - app/logs
+    php_extensions:
+    - curl # test
+    - mysqli # test
+    - mysql
+    - pdo_mysql
+    - zip
+    - intl
+    - mbstring
+    - xsl
+    - yaml # test
+    # - apc (see below)
+    # - posix # (maybe not a PHP library)
+    # - iconv # (maybe not a PHP library)
+    # - tokenizer (already loaded)
+    # - xml # (maybe not a PHP library)
+    zend_extensions:
+    # use XCache, not APC — for PHP 5.4 you want APC 3.1.13+ and PagodaBox uses 3.1.9 (segfault city)
+    - opcache
+
+    # php.ini settings for symfony
+    php_session_autostart: 0   # off by default but might as well be explicit
+    php_short_open_tag : 0     # don't use "Off" or Off (or "On" or On) which fail to be parsed
+    #magic_quotes_gpc: 0       # removed as of PHP 5.4
+    #register_globals: 0       # removed as of PHP 5.4
+
+# ~~~ PAGODA ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    # settings for logs viewable from 'pagoda log'
+    # apache_access_log : false # default: warn
+    apache_error_log  : true
+    php_error_log     : true
+    php_fpm_log       : true
+
+# ~~~ COMMAND HOOKS ~~~~~~~~~~~~~~~~~~
+
+    after_build:
+    - "curl -sS https://getcomposer.org/installer | php"
+    - "php composer.phar install --prefer-source --optimize-autoloader --no-interaction"
+    # --prefer-source smooths out API limits https://github.com/composer/composer/issues/1861
+    # --optimize-autoloader generally recommended for production
+    # --no-interaction to create parameters.yml automatically
+
+    after_deploy:
+    - "php app/check.php"
+    # - "php app/console --env=prod --no-debug cache:clear --no-warmup"  # do this like every deploy
+    # - "php app/console --env=prod --no-debug cache:warmup"             # do this like every deploy
+    # - "php app/console router:debug --env=prod"                      # helpful reminder
+    # - "php app/console assetic:dump --env=prod --no-debug            # when assetic is in the mix
+
+db1:
+  type: mysql
