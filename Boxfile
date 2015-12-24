@@ -5,7 +5,7 @@ global:
 build:
   exec:
     - 'php -v'
-    - 'composer install --no-interaction --prefer-source'
+    - 'composer install --no-interaction'
   after_exec:
     - 'composer dump-autoload'
   lib_dir: vendor
